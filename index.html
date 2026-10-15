@@ -289,6 +289,45 @@ details.sec>div{padding-bottom:14px}
 .tema .bl{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
 .tema .bl span{font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:1px 7px;color:var(--muted)}
 
+/* ---------- fichas de bloqueo ---------- */
+.blist{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:10px;margin-top:10px}
+.bcard{display:grid;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:13px 14px;text-decoration:none;color:var(--ink);box-shadow:var(--shadow)}
+.bcard:hover{border-color:var(--accent)}
+.bcard b{font-family:var(--f-display);font-stretch:88%;font-size:18px;line-height:1.2}
+.bcard span.d{font-size:13px;color:var(--muted)}
+.bcard .pills{display:flex;gap:6px;flex-wrap:wrap}
+.quick{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface)}
+.quick>div{background:var(--surface);padding:11px 13px;min-width:0;box-shadow:1px 1px 0 var(--line)}
+.quick small{display:block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+.quick .v{font-size:14.5px}
+.quick .vol{background:var(--nerve-soft)}
+.terr{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;margin-top:12px}
+.terr>div{border-radius:10px;padding:10px 12px;font-size:14px;min-width:0}
+.terr small{display:block;font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px}
+.terr .t-si{background:var(--ok-soft)} .terr .t-si small{color:var(--ok)}
+.terr .t-no{background:var(--surface-2)} .terr .t-no small{color:var(--muted)}
+.terr .t-fr{border:1px solid var(--line)}
+.terr .t-fr.alto{background:var(--crit-soft);border-color:transparent} .terr .t-fr.alto small{color:var(--crit)}
+.terr .t-fr.moderado{background:var(--warn-soft);border-color:transparent} .terr .t-fr.moderado small{color:var(--warn)}
+.terr .t-fr.bajo small,.terr .t-fr.nulo small{color:var(--ok)}
+.imgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:10px}
+.imgs a{display:grid;gap:4px;border:1px solid var(--line);border-radius:10px;padding:11px 12px;text-decoration:none;color:var(--ink);background:var(--surface)}
+.imgs a:hover{border-color:var(--accent)}
+.imgs a b{font-size:14px}
+.imgs a span{font-size:12.5px;color:var(--muted)}
+.imgs a i{font-style:normal;font-size:11.5px;font-weight:700;color:var(--accent)}
+.figs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:14px;margin-bottom:12px}
+.figs figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.figs img{display:block;width:100%;height:auto;background:#0a0c0d}
+.figs figcaption{padding:10px 12px;font-size:13.5px;display:grid;gap:3px}
+.figs figcaption .src{font-size:12px;color:var(--muted)}
+.figs figcaption .src a{color:var(--muted)}
+.crumbs{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:13.5px;margin-bottom:12px}
+.crumbs a{text-decoration:none;font-weight:600}
+.cmp th:first-child,.cmp td:first-child{position:sticky;left:0;background:var(--surface);z-index:1}
+.cmp td{font-size:13.5px}
+.cmp td .pill{white-space:nowrap}
+.sibs{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 footer{border-top:1px solid var(--line);padding-block:18px 28px;font-size:12.5px;color:var(--muted)}
 footer p{margin:.3em 0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
@@ -394,13 +433,16 @@ function parseHash(){
   const h = (location.hash || "").replace("#","");
   if (ANAT.includes(h)) { S.tab = "anatomia"; S.sub = h; }
   else if (h === "anatomia") { S.tab = "anatomia"; }
-  else if (TABS.some(t => t[0] === h)) { S.tab = h; }
+  else if (TABS.some(t => t[0] === h)) { S.tab = h; S.bloque = null; }
+  else if (h.startsWith("b-") && D.bloqueos.some(b => b.id === h.slice(2))) { S.tab = "bloqueos"; S.bloque = h.slice(2); }
+  else if (/^tema-\d+$/.test(h)) { S.tab = "bloqueos"; S.bloque = null; S.tema = +h.slice(5); }
+  if (h === "bloqueos") S.tema = null;
 }
 function nav(token, keep){
   if (!keep) { S.nervio = null; S.nivel = null; S.filtroRaiz = null; }
   if (location.hash === "#"+token) { parseHash(); render(); } else { location.hash = token; }
 }
-window.addEventListener("hashchange", () => { S.filtroRaiz = null; if (!pendingNerve) S.nervio = null; if (!pendingLevel) S.nivel = null; parseHash(); render(); window.scrollTo({top:0}); });
+window.addEventListener("hashchange", () => { S.filtroRaiz = null; S.tema = null; S.bloque = null; if (!pendingNerve) S.nervio = null; if (!pendingLevel) S.nivel = null; parseHash(); render(); window.scrollTo({top:0}); });
 
 /* ------------------------------ helpers ------------------------------ */
 const plexo = id => D.anatomia.plexos.find(p => p.id === id);
@@ -547,7 +589,7 @@ function braquialCard(p){
   <div class="swipe">Desliza el esquema hacia la derecha para ver cordones y ramas →</div><div class="diagram-scroll">${braquialSVG(p)}</div>
   ${lvl ? `<div class="legend"><span><i class="lg-si"></i>Bloqueado</span><span><i class="lg-par"></i>Parcial o inconstante</span><span><i class="lg-no"></i>No bloqueado</span></div>` : `<div class="legend"><span>Los cordones se nombran por su relación con la arteria axilar.</span></div>`}
   <div id="bpFicha">${fichaHTML(p)}</div>
-  ${lvl ? `<div class="level-info"><div><h3 style="font-size:20px;font-weight:800;margin-bottom:8px">${esc(lvl.nombre)}</h3><dl class="kv"><dt>Nivel</dt><dd>${esc(lvl.donde)}</dd><dt>Cubre</dt><dd>${esc(lvl.cubre)}</dd><dt>Respeta</dt><dd>${esc(lvl.respeta)}</dd><dt>Frénico</dt><dd>${esc(lvl.frenico)}</dd></dl></div>${ecoCard(lvl.eco, true)}</div>` : ""}
+  ${lvl ? `<div class="level-info"><div><h3 style="font-size:20px;font-weight:800;margin-bottom:8px">${esc(lvl.nombre)}</h3><dl class="kv"><dt>Nivel</dt><dd>${esc(lvl.donde)}</dd><dt>Cubre</dt><dd>${esc(lvl.cubre)}</dd><dt>Respeta</dt><dd>${esc(lvl.respeta)}</dd><dt>Frénico</dt><dd>${esc(lvl.frenico)}</dd></dl>${D.bloqueos.some(b => b.id === lvl.id) ? `<p style="margin-top:10px"><a class="btn" style="text-decoration:none" href="#b-${lvl.id}">Ver ficha del bloqueo</a></p>` : ""}</div>${ecoCard(lvl.eco, true)}</div>` : ""}
   </div>`;
 }
 
@@ -621,14 +663,59 @@ function ecoCard(id, inline){
 }
 
 /* ============================== BLOQUEOS ============================== */
+const FRN = { alto:["crit","Frénico: alto"], moderado:["warn","Frénico: moderado"], bajo:["ok","Frénico: bajo"], nulo:["ok","Sin frénico"] };
+const frPill = b => b.frenicoNivel && FRN[b.frenicoNivel] ? `<span class="pill ${FRN[b.frenicoNivel][0]}">${FRN[b.frenicoNivel][1]}</span>` : "";
+const bloquesDeTema = n => D.bloqueos.filter(b => b.tema === n || (b.temas||[]).includes(n));
+function bcardHTML(b){ return `<a class="bcard" href="#b-${b.id}"><b>${esc(b.nombre)}</b><span class="d">${esc(b.resumen || b.dermatomas || "")}</span><div class="pills">${frPill(b)}${b.tipo?`<span class="tag">${esc(b.tipo)}</span>`:""}</div></a>`; }
+
 function viewBloqueos(){
+  if (S.bloque) { const b = D.bloqueos.find(x => x.id === S.bloque); if (b) return viewBloqueo(b); }
+  if (S.tema) { const t = D.temas.find(x => x.n === S.tema); if (t) return viewTema(t); }
   const T = D.temas;
   return `<div class="hero"><div class="eyebrow">Fichas por tema</div><h1>Bloqueos</h1>
-  <p class="lede">Cada tema presentado se convierte en fichas de bloqueo con indicaciones, sonoanatomía, técnica, volumen y dosis, complicaciones, evidencia y perlas. Un bloqueo que aparece en varios temas se escribe una vez y se enlaza.</p></div>
-  <div class="temas">${T.map(t => `<div class="tema ${t.estado}"><div class="n">${t.n}</div><div><h3>${esc(t.titulo)}</h3>
-    ${t.estado==="listo" ? `<span class="pill ok">Disponible</span> <a class="btn" style="margin-left:6px;text-decoration:none" href="#${t.ruta}">Abrir</a>` : `<span class="pill warn">En preparación</span>`}
-    ${t.bloqueos.length ? `<div class="bl">${t.bloqueos.map(b => `<span>${esc(b)}</span>`).join("")}</div>` : ""}</div></div>`).join("")}</div>
-  ${D.bloqueos.length ? "" : `<p class="nota" style="margin-top:14px">Las fichas aparecen aquí a medida que se agregan a contenido.js.</p>`}`;
+  <p class="lede">Cada tema presentado se convierte en fichas con la técnica completa, el territorio que cubre, volumen, complicaciones y evidencia.</p></div>
+  <div class="temas">${T.map(t => { const bs = bloquesDeTema(t.n); const listo = t.estado === "listo";
+    return `<div class="tema ${t.estado}"><div class="n">${t.n}</div><div><h3>${esc(t.titulo)}</h3>
+    ${listo ? `<span class="pill ok">Disponible</span> <a class="btn" style="margin-left:6px;text-decoration:none" href="#${t.ruta || "tema-"+t.n}">Abrir</a>` : `<span class="pill warn">En preparación</span>`}
+    ${bs.length ? `<div class="blist">${bs.map(bcardHTML).join("")}</div>` : (t.bloqueos.length ? `<div class="bl">${t.bloqueos.map(b => `<span>${esc(b)}</span>`).join("")}</div>` : "")}</div></div>`; }).join("")}</div>`;
+}
+
+function viewTema(t){
+  const bs = bloquesDeTema(t.n);
+  const c = t.comparacion;
+  return `<div class="crumbs"><a href="#bloqueos">← Bloqueos</a></div>
+  <div class="hero"><div class="eyebrow">Tema ${t.n}</div><h1>${esc(t.titulo)}</h1>${t.intro?`<p class="lede">${esc(t.intro)}</p>`:""}</div>
+  ${t.inervacion ? `<div class="section-title">Inervación del hombro</div><div class="card"><div class="tbl"><table class="t"><thead><tr><th>Nervio</th><th>Origen</th><th>Qué inerva</th></tr></thead><tbody>${t.inervacion.map(r => `<tr><td><b>${esc(r[0])}</b></td><td class="mono" style="font-size:13px">${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join("")}</tbody></table></div>${t.inervacionNota ? `<div class="perla">${esc(t.inervacionNota)}</div>` : ""}<p class="nota" style="margin:8px 0 0">Ver también el <a href="#braquial">esquema del plexo braquial</a> y el <a href="#cervical">plexo cervical</a>.</p></div>` : ""}
+  <div class="section-title">Fichas</div>
+  <div class="blist">${bs.map(bcardHTML).join("")}</div>
+  ${c ? `<div class="section-title">${esc(c.titulo || "Comparación")}</div><div class="card"><div class="tbl"><table class="t cmp" style="min-width:${120 + c.columnas.length*150}px"><thead><tr><th></th>${c.columnas.map(x => `<th>${esc(x)}</th>`).join("")}</tr></thead><tbody>
+    ${c.filas.map(f => `<tr><td><b>${f.id && D.bloqueos.some(x => x.id === f.id) ? `<a href="#b-${f.id}">${esc(f.n)}</a>` : esc(f.n)}</b></td>${f.v.map(v => `<td>${v}</td>`).join("")}</tr>`).join("")}</tbody></table></div>${c.nota?`<p class="nota">${esc(c.nota)}</p>`:""}</div>` : ""}
+  ${t.decision ? `<div class="section-title">Cómo elegir</div><div class="card prose">${t.decision}</div>` : ""}
+  ${refsHTML(t.refs)}`;
+}
+
+function viewBloqueo(b){
+  const f = b.ficha || {}, t = D.temas.find(x => x.n === b.tema);
+  const q = (k,l,cls="") => f[k] ? `<div class="${cls}"><small>${l}</small><div class="v">${esc(f[k])}</div></div>` : "";
+  const sec = (tit, html, open) => html ? `<details class="sec" ${open?"open":""}><summary>${tit}</summary><div class="prose">${String(html).replace(/<table class="t/g,'<div class="tbl"><table class="t').replace(/<\/table>/g,"</table></div>")}</div></details>` : "";
+  const sibs = bloquesDeTema(b.tema).filter(x => x.id !== b.id);
+  const nivel = plexo("braquial").niveles.find(n => n.id === b.id);
+  return `<div class="crumbs"><a href="#bloqueos">← Bloqueos</a>${t?`<span class="nota">/</span><a href="#tema-${t.n}">Tema ${t.n}</a>`:""}</div>
+  <div class="hero"><div class="eyebrow">${esc(b.region || "")}${t?" · Tema "+t.n:""}</div><h1>${esc(b.nombre)}</h1>${b.resumen?`<p class="lede">${esc(b.resumen)}</p>`:""}
+  <div class="pills" style="display:flex;gap:6px;flex-wrap:wrap">${frPill(b)}${b.tipo?`<span class="tag">${esc(b.tipo)}</span>`:""}</div></div>
+  <div class="card"><div class="card-h"><h2>Ficha rápida</h2>${b.dosis?`<button class="btn primary" data-act="b-calc" data-v="${b.id}">Calcular dosis</button>`:""}</div>
+    <div class="quick">${q("posicion","Posición")}${q("transductor","Transductor")}${q("profundidad","Profundidad")}${q("aguja","Aguja")}${q("abordaje","Abordaje")}${q("objetivo","Objetivo")}${q("volumen","Volumen","vol")}</div>
+    <div class="terr">${b.dermatomas?`<div class="t-si"><small>Territorio bloqueado</small>${esc(b.dermatomas)}</div>`:""}${b.noCubre?`<div class="t-no"><small>No cubre</small>${esc(b.noCubre)}</div>`:""}${b.frenico?`<div class="t-fr ${b.frenicoNivel||""}"><small>Diafragma</small>${esc(b.frenico)}</div>`:""}</div>
+  </div>
+  ${(() => { const ids = [].concat(b.eco || []).filter(id => D.anatomia.eco[id]); return ids.length ? `<div class="section-title">Sonoanatomía</div>${ids.length > 1 ? `<div class="grid2">${ids.map(id => ecoCard(id)).join("")}</div>` : ecoCard(ids[0])}` : ""; })()}
+  ${(() => { const F = (b.figuras||[]); return F.length ? `<div class="section-title">Imágenes reales</div><div class="figs">${F.map(i => `<figure data-fig><a href="${esc(i.src)}" target="_blank" rel="noopener"><img src="${esc(i.src)}" alt="${esc(i.titulo)}" loading="lazy"></a><figcaption><b>${esc(i.titulo)}</b>${i.nota?`<span>${esc(i.nota)}</span>`:""}<span class="src">${esc(i.fuente)} · <a href="${esc(i.url)}" target="_blank" rel="noopener">artículo</a> · <a href="${esc(i.licUrl)}" target="_blank" rel="noopener">${esc(i.licencia)}</a></span></figcaption></figure>`).join("")}</div>` : ""; })()}
+  <div class="section-title">Contenido</div>
+  <div class="card">${sec("Indicaciones", b.indicaciones, true)}${sec("Cobertura", b.cobertura, true)}${sec("Sonoanatomía", b.sonoanatomia, false)}${sec("Técnica paso a paso", b.tecnica, true)}${sec("Volumen y dosis", b.volumen ? `<p>${b.volumen}</p>` : "", false)}${sec("Complicaciones", b.complicaciones, false)}${sec("Evidencia", b.evidencia, false)}${sec("Perlas", b.perlas, true)}</div>
+  ${nivel ? `<p class="nota" style="margin-top:10px">Ver el nivel en el <a href="#braquial" data-act="ir-nivel" data-v="${b.id}">esquema del plexo braquial</a>.</p>` : ""}
+  ${(b.imagenes||[]).length ? `<div class="section-title">Más imágenes en la fuente original</div><div class="imgs">${b.imagenes.map(i => `<a href="${esc(i.url)}" target="_blank" rel="noopener"><b>${esc(i.titulo)}</b><span>${esc(i.fuente)}${i.figura?" · "+esc(i.figura):""}</span><i>Abrir fuente ↗</i></a>`).join("")}</div>` : ""}
+  ${qaHTML(b.preguntas)}
+  ${sibs.length ? `<div class="section-title">Otros bloqueos del tema</div><div class="sibs">${sibs.map(x => `<a class="chip" href="#b-${x.id}">${esc(x.nombre)}</a>`).join("")}</div>` : ""}
+  ${refsHTML(b.refs)}`;
 }
 
 /* ============================== CALCULADORA ============================== */
@@ -781,7 +868,9 @@ function buildIndex(){
   IDX.push({ t:"Anticoagulación", s:"Intervalos ASRA 5.ª ed.", go:() => nav("anticoagulacion") });
   D.farmacos.forEach(f => IDX.push({ t:f.nombre, s:"Anestésico local · máx. " + fmt(f.maxSin) + " mg/kg", go:() => { S.dil.f = f.id; S.dil.ci = f.presentaciones[f.presentaciones.length > 1 ? 1 : 0]; nav("calculadora"); } }));
   D.anticoag.grupos.forEach(g => g.filas.forEach(r => IDX.push({ t:r.f, s:"Anticoagulación · " + r.antes, go:() => { S.acq = r.f.split(" ")[0]; nav("anticoagulacion"); } })));
-  D.temas.forEach(t => t.bloqueos.forEach(b => IDX.push({ t:b, s:"Bloqueo · tema " + t.n + (t.estado==="listo"?"":" (en preparación)"), go:() => nav("bloqueos") })));
+  D.bloqueos.forEach(b => IDX.push({ t:b.nombre, s:"Bloqueo · " + (b.region||"") + " · tema " + b.tema, k:(b.dermatomas||"") + " " + (b.aka||""), go:() => nav("b-" + b.id) }));
+  D.temas.forEach(t => { if (t.estado === "listo" && t.n > 1) IDX.push({ t:t.titulo, s:"Tema " + t.n, go:() => nav("tema-" + t.n) });
+    if (t.estado !== "listo") t.bloqueos.forEach(b => IDX.push({ t:b, s:"Bloqueo · tema " + t.n + " (en preparación)", go:() => nav("bloqueos") })); });
 }
 let pendingNerve = null, pendingLevel = null, hit = 0, found = [];
 const qEl = $("#q"), resEl = $("#results");
@@ -841,11 +930,14 @@ function act(el){
   else if (a === "eco") { S.eco[v] = !S.eco[v]; save(); document.querySelectorAll("[data-eco]").forEach(c => { c.querySelector(".eco").innerHTML = ecoSVG(c.dataset.eco); c.querySelectorAll(".tog").forEach(t => t.setAttribute("aria-pressed", S.eco[t.dataset.v])); }); }
   else if (a === "sexo") { S.pac.sexo = v; save(); document.querySelectorAll('[data-act="sexo"]').forEach(b => b.classList.toggle("on", b.dataset.v === v)); updCalc(); }
   else if (a === "dil-plan") { const f = F(S.dil.f); if (S.ejemplo) { S.plan = []; S.ejemplo = false; } S.plan.push({ b: "Bloqueo " + (S.plan.length+1), f: f.id, c: +S.dil.cf, v: +S.dil.vf, epi: +S.dil.epi > 0 }); save(); renderPlan(); }
+  else if (a === "b-calc") { const b = D.bloqueos.find(x => x.id === v); const d = b && b.dosis; if (d) { if (S.ejemplo) { S.plan = []; S.ejemplo = false; } S.plan.push({ b: b.nombre, f: d.f, c: d.c, v: d.v, epi: !!d.epi }); save(); nav("calculadora"); } }
+  else if (a === "ir-nivel") { pendingLevel = v; }
   else if (a === "plan-add") { if (S.ejemplo) { S.ejemplo = false; } S.plan.push({ b: "Bloqueo " + (S.plan.length+1), f: "ropi", c: 0.5, v: 10, epi: false }); save(); renderPlan(); }
   else if (a === "plan-del") { S.plan.splice(+v, 1); S.ejemplo = false; save(); renderPlan(); }
   else if (a === "plan-clear") { S.plan = []; S.ejemplo = false; save(); renderPlan(); }
 }
 document.addEventListener("click", e => { const el = e.target.closest("[data-act]"); if (el) act(el); });
+document.addEventListener("error", e => { const f = e.target && e.target.closest && e.target.closest("figure[data-fig]"); if (f) { f.hidden = true; const g = f.parentElement; if (g && ![...g.children].some(c => !c.hidden)) { g.hidden = true; if (g.previousElementSibling) g.previousElementSibling.hidden = true; } } }, true);
 document.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target.matches && e.target.matches('g[data-act]')) { e.preventDefault(); act(e.target); } });
 document.addEventListener("input", e => {
   const t = e.target;

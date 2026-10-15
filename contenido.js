@@ -15,14 +15,42 @@
    ===================================================================== */
 
 window.BLOQUEOLAB = {
-  version: "8 oct 2026 · Tema 1",
+  version: "13 oct 2026 · Temas 1–2",
 
   /* ------------------------------------------------------------------ */
   temas: [
     { n: 1, titulo: "Anatomía de plexos braquial, cervical, lumbar y sacro", estado: "listo", ruta: "braquial",
       bloqueos: [] },
-    { n: 2, titulo: "Técnicas regionales para cirugía de hombro", estado: "pendiente",
-      bloqueos: ["Interescalénico", "Tronco superior", "Supraclavicular", "Supraescapular anterior y posterior", "Nervio axilar", "Plexo cervical superficial"] },
+    { n: 2, titulo: "Bloqueos regionales para cirugía de hombro", estado: "listo",
+      bloqueos: ["Interescalénico", "Tronco superior", "Supraescapular anterior", "Supraescapular posterior + axilar", "Cervical superficial"],
+      intro: "El hombro depende sobre todo del supraescapular y del axilar, ambos de C5–C6. Cuatro estrategias para cubrirlo: cuanto más distal el bloqueo, menos paresia frénica, y el reto es mantener la analgesia.",
+      inervacion: [
+        ["Supraescapular", "Tronco superior · C5–C6", "≈70 % de la inervación de la articulación: cápsula posterosuperior, supraespinoso e infraespinoso"],
+        ["Axilar", "Cordón posterior · C5–C6", "Cápsula anteroinferior y piel sobre el deltoides"],
+        ["Pectoral lateral", "Cordón lateral · C5–C7", "Cápsula anterosuperior"],
+        ["Subescapulares", "Cordón posterior · C5–C6", "Cápsula anterior"],
+        ["Supraclaviculares", "Plexo cervical · C3–C4", "Piel superior del hombro, donde van los portales"]
+      ],
+      inervacionNota: "Bloquear C5–C6 cubre la articulación; la piel de los portales (C3–C4) puede requerir un bloqueo cervical superficial o infiltración.",
+      comparacion: {
+        titulo: "Cuatro bloqueos para el hombro",
+        columnas: ["Dónde se deposita", "Paresia frénica", "Analgesia frente al interescalénico", "Volumen"],
+        filas: [
+          { id: "interescalenico", n: "Interescalénico", v: ["Entre las raíces C5 y C6, entre los escalenos", '<span class="pill crit">100 %</span>', "Referencia", "15–20 mL (bajo volumen 7–15 mL)"] },
+          { id: "tronco-superior", n: "Tronco superior", v: ["Tronco superior, distal a la salida del frénico", '<span class="pill warn">5–37 %</span>', "No inferior", "10–15 mL"] },
+          { id: "supraescapular-anterior", n: "Supraescapular anterior", v: ["Supraescapular bajo el omohioideo", '<span class="pill warn">Hasta 40 % (10 mL)</span>', "No inferior; no cubre el axilar", "5–10 mL"] },
+          { id: "supraescapular-posterior-axilar", n: "Supraescapular posterior + axilar", v: ["Fosa supraespinosa y espacio cuadrangular", '<span class="pill ok">2 %</span>', "Peor en las primeras 4 h; no inferior a las 24 h", "10 mL por nervio"] },
+          { id: "cervical-superficial", n: "Cervical superficial", v: ["Borde posterior del ECM · piel de los portales (C3–C4)", '<span class="pill ok">Rara*</span>', "Solo complemento: no cubre la articulación", "5 mL"] }
+        ],
+        nota: "Paresia hemidiafragmática por ecografía; los rangos varían según volumen y técnica. * Sin incidencia aislada reportada en ensayos clínicos. Fuente: Urmey 1991; Kim DH 2019; Ferré 2020; Auyong 2018; Neuts 2018."
+      },
+      decision: `<ul>
+        <li><b>Sin limitación respiratoria y se busca la mejor analgesia inicial:</b> interescalénico, con el menor volumen eficaz.</li>
+        <li><b>EPOC, obesidad, apnea del sueño o restricción pulmonar:</b> tronco superior (10–15 mL) o supraescapular anterior con 5 mL.</li>
+        <li><b>Reserva respiratoria muy limitada, o no se acepta disfonía, Horner ni debilidad de la mano:</b> supraescapular posterior + axilar, con analgesia multimodal para las primeras 4 h.</li>
+        <li><b>Portales o incisión en la piel superior del hombro con un bloqueo distal:</b> sumar cervical superficial o infiltración.</li>
+      </ul>`,
+      refs: ["tran2019", "aszmann", "urmey", "kimdh", "ferre", "auyong", "neuts"] },
     { n: 3, titulo: "Técnicas regionales para cirugía de miembro superior", estado: "pendiente",
       bloqueos: ["Supraclavicular", "Infraclavicular", "Axilar", "Bloqueos distales en codo y antebrazo"] },
     { n: 4, titulo: "Técnicas anestésicas para cirugía de cadera", estado: "pendiente",
@@ -745,6 +773,124 @@ window.BLOQUEOLAB = {
           { txt: "A. poplítea", x: 236, y: 188, a: [172, 174] },
           { txt: "Fémur", x: 104, y: 210, a: [130, 200] }
         ]
+      },
+
+      "tronco-superior": {
+        prof: 3,
+        titulo: "Tronco superior · eje corto en la fosa supraclavicular alta",
+        sonda: "Lineal de alta frecuencia; desde la fosa supraclavicular, deslizar a cefálico hasta ver C5 y C6 unidos",
+        ejes: ["Medial", "Lateral"],
+        claves: "El tronco superior es un óvalo único entre escaleno anterior y medio. El supraescapular se separa de su borde lateral y pasa hacia el omohioideo. El frénico queda sobre el escaleno anterior, más medial que en el interescalénico. Depositar junto al tronco, antes de la salida del supraescapular.",
+        el: [
+          { t: "musculo", e: [64, 26, 70, 12], rot: -6 },
+          { t: "musculo", e: [236, 44, 66, 9], rot: -8 },
+          { t: "musculo", e: [122, 112, 24, 32], rot: 6 },
+          { t: "musculo", e: [244, 124, 50, 38], rot: -6 },
+          { t: "fascia", p: [[96, 152], [190, 142], [310, 160]] },
+          { t: "arteria", c: [34, 104, 17] },
+          { t: "vena", e: [68, 84, 16, 9] },
+          { t: "arteria", c: [214, 68, 4.5] },
+          { t: "nervio", e: [176, 96, 13, 10], s: "hipo" },
+          { t: "nervio", c: [182, 126, 7], s: "hipo" },
+          { t: "nervio", c: [204, 84, 4.5], s: "hipo" },
+          { t: "nervio", c: [104, 82, 3.2], s: "hipo" },
+          { t: "difusion", e: [192, 104, 10, 14] },
+          { t: "aguja", a: [320, 72, 196, 100] }
+        ],
+        etiquetas: [
+          { txt: "ECM", x: 40, y: 12, a: [56, 24] },
+          { txt: "Omohioideo", x: 304, y: 30, a: [258, 42] },
+          { txt: "Tronco superior", x: 112, y: 62, a: [168, 92] },
+          { txt: "Supraescapular", x: 304, y: 96, a: [208, 86] },
+          { txt: "A. cervical transversa", x: 150, y: 40, a: [212, 66] },
+          { txt: "Frénico", x: 70, y: 70, a: [102, 80], an: "end" },
+          { txt: "C7", x: 160, y: 140, a: [178, 130], an: "end" },
+          { txt: "Esc. anterior", x: 70, y: 168, a: [118, 136] },
+          { txt: "Esc. medio", x: 300, y: 178, a: [256, 150] },
+          { txt: "Carótida", x: 8, y: 140, a: [30, 118], an: "start" }
+        ]
+      },
+
+      "supraescapular-anterior": {
+        prof: 3,
+        titulo: "Supraescapular anterior · bajo el omohioideo",
+        sonda: "Lineal de alta frecuencia, eje corto en la fosa supraclavicular; seguir la rama de C5 hacia lateral",
+        ejes: ["Medial", "Lateral"],
+        claves: "Desde el tronco superior, el supraescapular corre hacia lateral y pasa bajo el vientre inferior del omohioideo, superficial al escaleno medio. Está a menos de 1 cm del plexo: con más de 5 mL el anestésico difunde al tronco superior y al frénico.",
+        el: [
+          { t: "musculo", e: [176, 52, 84, 10], rot: 4 },
+          { t: "musculo", e: [190, 140, 92, 30], rot: -4 },
+          { t: "fascia", p: [[0, 22], [160, 28], [320, 20]] },
+          { t: "fascia", p: [[90, 112], [190, 106], [300, 116]] },
+          { t: "arteria", c: [146, 80, 5] },
+          { t: "nervio", c: [74, 92, 7], s: "hipo" },
+          { t: "nervio", c: [88, 106, 7], s: "hipo" },
+          { t: "nervio", c: [70, 118, 7], s: "hipo" },
+          { t: "nervio", c: [184, 78, 5], s: "hipo" },
+          { t: "difusion", e: [196, 80, 9, 6] },
+          { t: "aguja", a: [320, 52, 200, 80] }
+        ],
+        etiquetas: [
+          { txt: "Omohioideo", x: 230, y: 30, a: [214, 50] },
+          { txt: "Supraescapular", x: 150, y: 104, a: [182, 82] },
+          { txt: "A. cervical transversa", x: 30, y: 60, a: [142, 78] },
+          { txt: "Plexo braquial", x: 16, y: 150, a: [70, 124], an: "start" },
+          { txt: "Escaleno medio", x: 300, y: 186, a: [240, 150] }
+        ]
+      },
+
+      "supraescapular-posterior": {
+        prof: 5,
+        titulo: "Supraescapular posterior · fosa supraespinosa",
+        sonda: "Lineal, coronal sobre la fosa supraespinosa, paralela y craneal a la espina de la escápula",
+        ejes: ["Medial", "Lateral"],
+        claves: "Bajo el trapecio y el supraespinoso aparece el piso óseo de la fosa. El nervio y la arteria supraescapular están juntos sobre el hueso, bajo la fascia del supraespinoso; lateral queda la escotadura espinoglenoidea. Aguja en plano de medial a lateral hasta el piso de la fosa.",
+        el: [
+          { t: "musculo", e: [160, 26, 172, 16] },
+          { t: "musculo", e: [158, 92, 150, 40] },
+          { t: "fascia", p: [[0, 46], [160, 50], [320, 44]] },
+          { t: "fascia", p: [[20, 138], [150, 158], [300, 132]] },
+          { t: "hueso", p: [[10, 140], [150, 186], [270, 150]] },
+          { t: "arteria", c: [184, 158, 4.5] },
+          { t: "nervio", c: [170, 160, 4.5], s: "hipo" },
+          { t: "difusion", e: [168, 158, 18, 6] },
+          { t: "aguja", a: [0, 40, 160, 158] }
+        ],
+        etiquetas: [
+          { txt: "Trapecio", x: 300, y: 16, a: [270, 26] },
+          { txt: "Supraespinoso", x: 300, y: 80, a: [250, 92] },
+          { txt: "N. supraescapular", x: 130, y: 196, a: [168, 164] },
+          { txt: "A. supraescapular", x: 300, y: 176, a: [188, 160] },
+          { txt: "Piso de la fosa", x: 16, y: 196, a: [70, 170], an: "start" },
+          { txt: "Hacia la escotadura espinoglenoidea", x: 314, y: 128, a: [272, 150], an: "end" }
+        ]
+      },
+
+      "nervio-axilar": {
+        prof: 4,
+        titulo: "Nervio axilar · espacio cuadrangular",
+        sonda: "Lineal, sagital en la cara posterior del brazo, bajo el borde posterolateral del acromion",
+        ejes: ["Cefálico", "Caudal"],
+        claves: "Bajo el deltoides, sobre el cuello quirúrgico del húmero, el nervio axilar acompaña a la arteria circunfleja humeral posterior, entre el redondo menor (cefálico) y la cabeza larga del tríceps (caudal). Con Doppler se localiza la arteria y se depositan 10 mL a su alrededor.",
+        el: [
+          { t: "musculo", e: [160, 44, 172, 30] },
+          { t: "musculo", e: [70, 124, 64, 18], rot: 6 },
+          { t: "musculo", e: [268, 122, 54, 20], rot: -4 },
+          { t: "fascia", p: [[0, 82], [160, 96], [320, 84]] },
+          { t: "hueso", p: [[0, 176], [140, 146], [320, 184]] },
+          { t: "arteria", c: [178, 128, 6] },
+          { t: "nervio", c: [162, 130, 5], s: "panal" },
+          { t: "difusion", e: [170, 122, 18, 7] },
+          { t: "aguja", a: [320, 50, 186, 120] }
+        ],
+        etiquetas: [
+          { txt: "Deltoides", x: 300, y: 18, a: [270, 40] },
+          { txt: "Redondo menor", x: 16, y: 96, a: [60, 120], an: "start" },
+          { txt: "Tríceps (cabeza larga)", x: 312, y: 158, a: [272, 132] },
+          { txt: "N. axilar", x: 110, y: 160, a: [160, 134] },
+          { txt: "A. circunfleja humeral post.", x: 230, y: 104, a: [182, 124] },
+          { txt: "Cuello quirúrgico del húmero", x: 16, y: 200, a: [120, 160], an: "start" }
+        ]
       }
     },
 
@@ -763,7 +909,378 @@ window.BLOQUEOLAB = {
        eco: "<id de esquema en anatomia.eco>", tecnica, volumen, complicaciones,
        evidencia, perlas, refs: [] }
      ------------------------------------------------------------------ */
-  bloqueos: [],
+  bloqueos: [
+
+    /* ============================ INTERESCALÉNICO ============================ */
+    {
+      id: "interescalenico", nombre: "Interescalénico", region: "Hombro", tema: 2, tipo: "Anestésico y analgésico",
+      resumen: "Raíces C5–C6 entre los escalenos anterior y medio. Estándar analgésico del hombro, con paresia frénica casi constante.",
+      frenicoNivel: "alto",
+      ficha: {
+        posicion: "Semisentado o supino, cabeza girada al lado contrario; mano hacia la rodilla ipsilateral para bajar el hombro",
+        transductor: "Lineal de alta frecuencia, transversal en el cuello a nivel del cricoides (C6)",
+        profundidad: "1–3 cm",
+        aguja: "22 G, 5 cm, bisel corto, aislada",
+        abordaje: "En plano, de lateral a medial, atravesando el escaleno medio",
+        objetivo: "Entre las raíces C5 y C6, entre escaleno anterior y medio",
+        volumen: "15–20 mL de bupivacaína 0,25–0,5 %. Volumen bajo: 7–15 mL alrededor de C5–C6"
+      },
+      dosis: { f: "bupi", c: 0.5, v: 15 },
+      dermatomas: "Raíces C5–C7 y tronco superior: hombro y brazo proximal. Piel del hombro superior (C3–C4) a menudo por difusión al plexo cervical.",
+      noCubre: "C8–T1 puede quedar parcial (territorio cubital y mano). T2 (axila y cara medial del brazo).",
+      frenico: "Paresia hemidiafragmática en el 100 % con volúmenes tradicionales (Urmey 1991). Con 5 mL baja a 45 %, pero no desaparece (Riazi 2008).",
+      indicaciones: `
+        <ul>
+          <li><b>Principales:</b> cirugía de hombro; cirugía de brazo y húmero proximal, incluido el cuello del húmero.</li>
+          <li><b>Otras:</b> cirugía de clavícula como parte de un esquema combinado con el plexo cervical superficial; reducción de luxación de hombro.</li>
+        </ul>
+        <h4>Contraindicaciones</h4>
+        <ul>
+          <li><b>Absolutas:</b> rechazo del paciente, infección en el sitio de punción, alergia conocida al anestésico local, déficit neurológico previo no evaluado.</li>
+          <li><b>Relativas:</b> compromiso respiratorio significativo, EPOC grave, restricción pulmonar importante.</li>
+        </ul>`,
+      cobertura: `
+        <p><b>Principalmente:</b> raíces C5–C7 y tronco superior, con los nervios supraescapular, axilar, subescapulares, pectoral lateral y musculocutáneo. Excelente para hombro y brazo proximal.</p>
+        <p><b>Puede quedar parcial:</b> C8–T1 (territorio cubital y mano).</p>
+        <p><b>Bloqueo motor esperable:</b> abducción del hombro (deltoides, axilar), flexión del codo (bíceps, musculocutáneo) y, según la extensión, extensión del codo y la muñeca (radial). La mano puede quedar parcial.</p>`,
+      sonoanatomia: `
+        <ul>
+          <li>Plexo lateral a la arteria carótida y la vena yugular interna, entre el escaleno anterior (medial) y el medio (lateral).</li>
+          <li>Raíces C5, C6 y C7 hipoecoicas alineadas: el "semáforo". La ecografía incluye el borde lateral del ECM y la apófisis transversa de C7.</li>
+          <li>Torácico largo y escapular dorsal se ven a menudo dentro o sobre el escaleno medio, posteriores al plexo.</li>
+        </ul>`,
+      eco: "interescalenico",
+      tecnica: `
+        <ol>
+          <li><b>Estrategia de localización:</b> iniciar en la región supraclavicular, identificar el plexo superficial y lateral a la arteria subclavia y desplazar la sonda hacia cefálico hasta ver las raíces entre los escalenos.</li>
+          <li>Habón cutáneo lateral a la sonda; avanzar la aguja en plano a través del escaleno medio, reconociendo el torácico largo y el escapular dorsal para no lesionarlos.</li>
+          <li>Colocar la punta en el espacio entre los escalenos e inyectar hasta documentar la distribución del anestésico alrededor del plexo. El volumen y el número de inserciones se ajustan a la distribución observada.</li>
+          <li>Si la punta toca los elementos del plexo, la presión de inyección sube (&gt;15 psi): retirar ligeramente la aguja.</li>
+        </ol>`,
+      volumen: "Inyección única: 15–20 mL de anestésico local (p. ej. bupivacaína 0,25–0,5 %). Alternativa de volumen bajo: 7–15 mL alrededor de C5–C6, enfocada en los troncos superiores. Usar el menor volumen eficaz, guiando la inyección para que rodee las raíces. Dosis máxima de bupivacaína: 2,5 mg/kg sin epinefrina (≈175 mg) y 3 mg/kg con epinefrina (≈225 mg).",
+      complicaciones: `
+        <ul>
+          <li>Bloqueo del nervio frénico (100 % con volúmenes tradicionales).</li>
+          <li>Inyección intravascular, especialmente en la arteria vertebral.</li>
+          <li>Inyección subaracnoidea y bloqueo epidural.</li>
+          <li>Neumotórax.</li>
+          <li>Lesión del torácico largo o del escapular dorsal al atravesar el escaleno medio.</li>
+        </ul>`,
+      evidencia: `
+        <ul>
+          <li><b>Riazi 2008</b> (20 vs 5 mL): paresia frénica de 100 % con 20 mL frente a 45 % con 5 mL. Caída de VEF₁, CVF y SatO₂ significativamente mayor con 20 mL. Sin diferencias en dolor ni consumo de opioides.</li>
+          <li><b>Urmey 1991:</b> 100 % de paresia hemidiafragmática con la técnica clásica.</li>
+        </ul>`,
+      perlas: `
+        <div class="perla">Es el bloqueo de elección para cirugía de hombro por su cobertura proximal (C5–C7).</div>
+        <div class="perla">La ecografía permite más precisión, menos volumen y mejor perfil de seguridad, pero el bajo volumen reduce la paresia frénica sin eliminarla.</div>
+        <div class="perla">La selección del paciente es clave: evitarlo con reserva pulmonar limitada.</div>`,
+      preguntas: [
+        { q: "¿Por qué el interescalénico casi siempre paraliza el hemidiafragma?", a: "Porque el frénico desciende sobre la cara anterior del escaleno anterior, a pocos milímetros de C5. Con volúmenes tradicionales el anestésico lo alcanza en prácticamente todos los pacientes." },
+        { q: "¿Bajar el volumen a 5 mL resuelve el problema?", a: "Lo reduce (de 100 % a 45 % en Riazi 2008) sin perder analgesia, pero no lo elimina. En el paciente con poca reserva conviene un bloqueo más distal." },
+        { q: "¿Cómo encuentro el plexo si no veo bien las raíces?", a: "Empezando en la fosa supraclavicular, donde el plexo está lateral a la subclavia, y subiendo con la sonda hasta ver las raíces entre los escalenos." }
+      ],
+      figuras: [
+        { src: "img/lim2020-fig1.jpg", titulo: "Plexo braquial entre los escalenos anterior y medio", nota: "Izquierda de la imagen: lateral; derecha: medial.", fuente: "Lim YC et al. Korean J Anesthesiol. 2020;73(5):408–16, Fig. 1", url: "https://ekja.org/journal/view.php?doi=10.4097/kja.20141", licencia: "CC BY-NC 4.0", licUrl: "https://creativecommons.org/licenses/by-nc/4.0/" }
+      ],
+      imagenes: [
+        { titulo: "Posición del paciente, sonda y aguja", fuente: "NYSORA · Ultrasound-guided interscalene brachial plexus block", url: "https://www.nysora.com/techniques/upper-extremity/ultrasound-guided-interscalene-brachial-plexus-block/" },
+        { titulo: "Anatomía y técnica del interescalénico", fuente: "Brown DL. Atlas of Regional Anesthesia, 6.ª ed.", url: "https://www.elsevier.com/books/atlas-of-regional-anesthesia/brown/978-0-323-56482-1" }
+      ],
+      refs: ["brown", "nysora_isb", "urmey", "riazi", "gadsden"]
+    },
+
+    /* ============================ TRONCO SUPERIOR ============================ */
+    {
+      id: "tronco-superior", nombre: "Tronco superior", region: "Hombro", tema: 2, tipo: "Anestésico y analgésico",
+      resumen: "Tronco C5–C6 antes de la salida del supraescapular. Analgesia equivalente al interescalénico con mucha menos paresia frénica.",
+      frenicoNivel: "moderado",
+      ficha: {
+        posicion: "Semisentado, cabeza girada hacia el lado contrario",
+        transductor: "Lineal de alta frecuencia, eje corto en la fosa supraclavicular; rastrear hacia cefálico",
+        profundidad: "Superficial, similar al interescalénico",
+        aguja: "22 G, 5 cm, bisel corto",
+        abordaje: "En plano, de lateral a medial",
+        objetivo: "Junto al tronco superior, antes de la salida del nervio supraescapular",
+        volumen: "10–15 mL de bupivacaína 0,25–0,5 %"
+      },
+      dosis: { f: "bupi", c: 0.5, v: 10 },
+      dermatomas: "Tronco superior (C5–C6): supraescapular, axilar, pectoral lateral y subescapulares.",
+      noCubre: "C7–T1 en buena parte: menos bloqueo de la mano. T2 (axila y cara medial del brazo).",
+      frenico: "Paresia de 5–37 % según volumen y técnica; 4,8 % frente a 71,4 % con el interescalénico en Kim 2019.",
+      indicaciones: `
+        <ul>
+          <li><b>Principales:</b> artroscopia de hombro (manguito rotador, Bankart), cirugía abierta y artroplastia de hombro, cirugía de húmero proximal.</li>
+          <li><b>Preferirlo sobre el interescalénico</b> con reserva respiratoria limitada (EPOC, restricción pulmonar), obesidad o apnea obstructiva del sueño, y cuando se quiere bajar el riesgo de paresia frénica sin perder analgesia.</li>
+        </ul>`,
+      cobertura: `
+        <p><b>Principalmente:</b> tronco superior (C5–C6) antes de que salga el supraescapular. Cubre supraescapular, axilar, pectoral lateral y subescapulares.</p>
+        <p><b>Respeta en la mayoría:</b> el frénico, porque la inyección es más distal que en el interescalénico, y buena parte de C7–T1.</p>`,
+      sonoanatomia: `
+        <ul>
+          <li><b>Tronco superior:</b> unión de C5 y C6, entre los escalenos anterior y medio.</li>
+          <li><b>Nervio supraescapular:</b> sale del borde lateral del tronco superior.</li>
+          <li><b>Nervio frénico:</b> sobre el escaleno anterior; se aleja del plexo hacia caudal.</li>
+          <li><b>Referencias cercanas:</b> arteria cervical transversa y omohioideo.</li>
+        </ul>`,
+      eco: "tronco-superior",
+      tecnica: `
+        <ol>
+          <li><b>Posición:</b> semisentado, cabeza girada hacia el lado contrario.</li>
+          <li><b>Sonda:</b> lineal de alta frecuencia, eje corto en la fosa supraclavicular.</li>
+          <li><b>Rastreo:</b> seguir el plexo en sentido cefálico hasta ver C5 y C6 unirse en el tronco superior.</li>
+          <li><b>Punción:</b> aguja en plano, de lateral a medial; depositar junto al tronco, antes de la salida del supraescapular.</li>
+        </ol>`,
+      volumen: "10–15 mL en inyección única de bupivacaína 0,25–0,5 %, con dexametasona 4 mg IV o perineural para prolongar la analgesia. Usar el menor volumen eficaz: el tronco superior es una estructura única y compacta, y los volúmenes altos difunden hacia el frénico y pierden la ventaja del bloqueo.",
+      complicaciones: `
+        <ul>
+          <li><b>Esperables:</b> paresia frénica (menos frecuente que con el interescalénico, pero no nula); disfonía y síndrome de Horner por difusión cefálica o medial; bloqueo motor del hombro y el brazo proximal.</li>
+          <li><b>Graves o raras:</b> punción vascular (arteria cervical transversa y escapular dorsal); toxicidad sistémica; lesión nerviosa por inyección intraneural en el tronco; neumotórax si la aguja se desvía a caudal.</li>
+        </ul>`,
+      evidencia: `
+        <ul>
+          <li><b>Kim DH 2019</b> (n = 125): analgesia no inferior al interescalénico, con dolor máximo similar en recuperación. Paresia hemidiafragmática de 4,8 % frente a 71,4 %. Más satisfacción y menos disfonía, con función respiratoria preservada.</li>
+          <li><b>Metaanálisis 2025</b> (8 ECA, 597 pacientes): 90 % menos paresia hemidiafragmática (RR 0,10).</li>
+        </ul>`,
+      perlas: `
+        <div class="perla"><b>Preserva el frénico:</b> primera opción en EPOC, obesidad o apnea del sueño cuando se necesita bloquear C5–C6.</div>
+        <div class="perla"><b>Técnica precisa:</b> rastrear desde la fosa supraclavicular y depositar 10–15 mL antes de la salida del supraescapular.</div>
+        <div class="perla"><b>No es inocuo:</b> la paresia frénica sigue siendo posible; vigilar disfonía, Horner y punción vascular.</div>`,
+      preguntas: [
+        { q: "¿Por qué hay que depositar antes de la salida del supraescapular?", a: "Porque el supraescapular aporta cerca del 70 % de la inervación de la articulación. Si se inyecta distal a su salida, la cápsula posterosuperior puede quedar sin bloquear." },
+        { q: "¿Por qué el tronco superior ahorra el frénico?", a: "Porque el frénico se separa del plexo a medida que desciende sobre el escaleno anterior: en el tronco superior la inyección queda más lejos que en C5–C6." }
+      ],
+      figuras: [
+        { src: "img/frederico2022-fig1.jpg", titulo: "Variantes anatómicas de C5 y C6 en su llegada al tronco superior", nota: "", fuente: "Frederico TN et al. Braz J Anesthesiol. 2022;72(6):774–9, Fig. 1", url: "https://scielo.br/j/bja/a/J38pbzMCMHSvzgRLjHHmjLD/?lang=en", licencia: "CC BY-NC-ND 4.0", licUrl: "https://creativecommons.org/licenses/by-nc-nd/4.0/" },
+        { src: "img/frederico2022-fig2.jpg", titulo: "Posición final de la aguja: inyección dentro del grupo del tronco superior, bajo la vaina paraneural", nota: "TRPZ: trapecio; OH: omohioideo; SCM: esternocleidomastoideo; SA: arteria subclavia; 1st rib: primera costilla.", fuente: "Frederico TN et al. Braz J Anesthesiol. 2022;72(6):774–9, Fig. 2", url: "https://scielo.br/j/bja/a/J38pbzMCMHSvzgRLjHHmjLD/?lang=en", licencia: "CC BY-NC-ND 4.0", licUrl: "https://creativecommons.org/licenses/by-nc-nd/4.0/" },
+        { src: "img/frederico2022-fig3.jpg", titulo: "Área de pérdida sensitiva tras el bloqueo del tronco superior", nota: "Territorio C5–C6: cara lateral del brazo y del antebrazo.", fuente: "Frederico TN et al. Braz J Anesthesiol. 2022;72(6):774–9, Fig. 3", url: "https://scielo.br/j/bja/a/J38pbzMCMHSvzgRLjHHmjLD/?lang=en", licencia: "CC BY-NC-ND 4.0", licUrl: "https://creativecommons.org/licenses/by-nc-nd/4.0/" }
+      ],
+      imagenes: [
+        { titulo: "Sonda, ecografía y difusión del tronco superior", fuente: "WFSA · Anaesthesia Tutorial of the Week 492 (registro gratuito)", url: "https://resources.wfsahq.org/atotw/ultrasound-guided-superior-trunk-block/" }
+      ],
+      refs: ["kimdh", "burckett", "meta_stb", "nysora_isb"]
+    },
+
+    /* ======================== SUPRAESCAPULAR ANTERIOR ======================== */
+    {
+      id: "supraescapular-anterior", nombre: "Supraescapular anterior", region: "Hombro", tema: 2, tipo: "Analgésico", aka: "subomohioideo",
+      resumen: "Nervio supraescapular bajo el omohioideo, en la fosa supraclavicular. Analgesia no inferior al interescalénico con mejor función respiratoria.",
+      frenicoNivel: "moderado",
+      ficha: {
+        posicion: "Semisentado, cabeza girada hacia el lado contrario",
+        transductor: "Lineal de alta frecuencia, eje corto en la fosa supraclavicular",
+        profundidad: "Superficial, bajo el omohioideo",
+        aguja: "22 G, 5 cm, bisel corto",
+        abordaje: "En plano, de lateral a medial",
+        objetivo: "Junto al nervio supraescapular, bajo el omohioideo",
+        volumen: "5–10 mL de bupivacaína o ropivacaína 0,5 % (ropivacaína 0,375 % también es eficaz)"
+      },
+      dosis: { f: "bupi", c: 0.5, v: 5 },
+      dermatomas: "Sin territorio cutáneo relevante. Cápsula posterosuperior, supraespinoso e infraespinoso (C5–C6).",
+      noCubre: "Nervio axilar y cara anterior del hombro. Piel de los portales.",
+      frenico: "Hasta 40 % con 10 mL (Ferré 2020); dos tercios se resuelven en menos de 8 h. Con 5 mL baja la paresia completa.",
+      indicaciones: `
+        <ul>
+          <li><b>Principales:</b> artroscopia de hombro (reparación del manguito rotador, acromioplastia); analgesia de hombro sin bloquear todo el plexo braquial.</li>
+          <li>Combinado con un bloqueo axilar o infraclavicular para cubrir todo el hombro.</li>
+          <li><b>Preferirlo sobre el interescalénico</b> con reserva respiratoria limitada, cuando se quiere conservar la fuerza de la mano o menos paresia frénica con analgesia no inferior.</li>
+        </ul>`,
+      cobertura: `
+        <p><b>Motor:</b> supraespinoso e infraespinoso. <b>Articular:</b> cápsula posterosuperior (el supraescapular aporta cerca del 70 % de la inervación del hombro).</p>
+        <p><b>No cubre:</b> el nervio axilar ni la cara anterior del hombro.</p>`,
+      sonoanatomia: `
+        <ul>
+          <li>Desde el tronco superior, la rama de C5 se separa hacia lateral: es el nervio supraescapular.</li>
+          <li>Pasa <b>bajo el omohioideo</b>, a menos de 1 cm del plexo.</li>
+          <li>Vecindad de las arterias supraescapular y cervical transversa: usar Doppler.</li>
+        </ul>`,
+      eco: "supraescapular-anterior",
+      tecnica: `
+        <ol>
+          <li><b>Posición:</b> semisentado, cabeza girada hacia el lado contrario.</li>
+          <li><b>Sonda:</b> lineal de alta frecuencia, eje corto en la fosa supraclavicular.</li>
+          <li><b>Rastreo:</b> desde el tronco superior, seguir la rama de C5 que va hacia lateral bajo el omohioideo.</li>
+          <li><b>Punción:</b> aguja en plano, de lateral a medial; depositar junto al nervio, bajo el omohioideo.</li>
+        </ol>`,
+      volumen: "5–10 mL en inyección única de bupivacaína o ropivacaína 0,5 % (ropivacaína 0,375 % también es eficaz), con dexametasona 4 mg IV o perineural. Menos volumen, menos frénico: bajo el omohioideo el nervio está a menos de 1 cm del plexo; con 5 mL baja la paresia completa sin perder analgesia.",
+      complicaciones: `
+        <ul>
+          <li><b>Esperables:</b> paresia frénica (hasta 40 % con 10 mL; dos tercios se resuelven en menos de 8 h); cobertura incompleta (no bloquea el axilar ni la cara anterior del hombro); bloqueo motor del supraespinoso e infraespinoso.</li>
+          <li><b>Graves o raras:</b> punción vascular (arterias supraescapular y cervical transversa); toxicidad sistémica; lesión nerviosa por inyección intraneural; neumotórax si la aguja se desvía a caudal.</li>
+        </ul>`,
+      evidencia: `
+        <ul>
+          <li><b>Auyong 2018</b> (n = 189): analgesia no inferior al interescalénico; el supraclavicular no alcanzó la no inferioridad. Mismo consumo de opioides en los tres grupos. Capacidad vital en recuperación de 90 % del basal frente a 67 % con el interescalénico.</li>
+          <li><b>Ferré 2020</b> (anterior vs posterior, 10 mL): paresia frénica de 40 % frente a 2 %.</li>
+        </ul>`,
+      perlas: `
+        <div class="perla"><b>Preserva la función respiratoria:</b> capacidad vital de 90 % del basal frente a 67 % con el interescalénico.</div>
+        <div class="perla"><b>Técnica precisa:</b> seguir la rama de C5 bajo el omohioideo y depositar 5–10 mL junto al nervio.</div>
+        <div class="perla"><b>No es inocuo:</b> paresia frénica hasta 40 %; si es prioridad, el abordaje posterior la baja a 2 %.</div>`,
+      preguntas: [
+        { q: "¿Por qué el abordaje anterior paraliza más el diafragma que el posterior?", a: "Porque se hace en el cuello, a menos de 1 cm del plexo: el anestésico difunde al tronco superior y al frénico. El posterior se hace en la fosa supraespinosa, lejos de ambos." }
+      ],
+      figuras: [
+        { src: "img/lim2020-fig2.jpg", titulo: "Nervio supraescapular (flecha) separado del plexo, bajo el omohioideo", nota: "Izquierda de la imagen: lateral; derecha: medial.", fuente: "Lim YC et al. Korean J Anesthesiol. 2020;73(5):408–16, Fig. 2", url: "https://ekja.org/journal/view.php?doi=10.4097/kja.20141", licencia: "CC BY-NC 4.0", licUrl: "https://creativecommons.org/licenses/by-nc/4.0/" }
+      ],
+      imagenes: [],
+      refs: ["siegenthaler", "auyong", "ferre"]
+    },
+
+    /* ================== SUPRAESCAPULAR POSTERIOR + AXILAR =================== */
+    {
+      id: "supraescapular-posterior-axilar", nombre: "Supraescapular posterior + axilar", region: "Hombro", tema: 2, tipo: "Analgésico", aka: "bloqueo de hombro fosa supraespinosa espacio cuadrangular nervio axilar",
+      resumen: "Fosa supraespinosa y espacio cuadrangular, lejos del frénico. El más seguro para el diafragma; más dolor en las primeras 4 h.",
+      frenicoNivel: "bajo",
+      ficha: {
+        posicion: "Sentado o en decúbito lateral, brazo junto al cuerpo",
+        transductor: "Supraescapular: lineal, coronal sobre la fosa supraespinosa, paralela a la espina de la escápula. Axilar: lineal, sagital en la cara posterior del brazo, bajo el borde posterolateral del acromion",
+        profundidad: "Supraescapular: piso óseo de la fosa, bajo el supraespinoso. Axilar: bajo el deltoides",
+        aguja: "22 G, 5–8 cm según la profundidad",
+        abordaje: "En plano. Supraescapular: de medial a lateral",
+        objetivo: "Supraescapular: piso de la fosa, bajo la fascia del supraespinoso, junto a la arteria supraescapular. Axilar: alrededor de la arteria circunfleja humeral posterior, entre deltoides y redondo menor",
+        volumen: "10 mL por nervio de bupivacaína 0,25 % (20 mL en total)"
+      },
+      dosis: { f: "bupi", c: 0.25, v: 20 },
+      dermatomas: "Piel sobre el deltoides (axilar). Articular: cápsula posterosuperior (supraescapular) y anteroinferior (axilar).",
+      noCubre: "Pectoral lateral y subescapulares (cápsula anterior). Piel de los portales (C3–C4).",
+      frenico: "2 % con el abordaje posterior frente a 40 % con el anterior (Ferré 2020).",
+      indicaciones: `
+        <ul>
+          <li><b>Principales:</b> artroscopia de hombro (manguito rotador, acromioplastia, Bankart); analgesia de hombro sin tocar el plexo braquial; cirugía ambulatoria en la que el paciente necesita usar la mano.</li>
+          <li><b>Preferirlo sobre el interescalénico</b> con reserva respiratoria muy limitada, cuando no se acepta disfonía, Horner ni debilidad de la mano, y cuando se acepta más dolor en las primeras 4 h.</li>
+        </ul>`,
+      cobertura: `
+        <p><b>Supraescapular:</b> supraespinoso, infraespinoso y cápsula posterosuperior. <b>Axilar:</b> deltoides, redondo menor, cápsula anteroinferior y piel sobre el deltoides.</p>
+        <p><b>No cubre:</b> pectoral lateral ni subescapulares (cápsula anterior).</p>`,
+      sonoanatomia: `
+        <ul>
+          <li><b>Fosa supraespinosa:</b> piel → trapecio → supraespinoso → piso óseo de la fosa. Nervio y arteria supraescapular juntos sobre el piso, bajo la fascia del supraespinoso. Lateral, la escotadura espinoglenoidea.</li>
+          <li><b>Espacio cuadrangular:</b> húmero, deltoides y redondo menor; nervio axilar junto a la arteria circunfleja humeral posterior (Doppler).</li>
+        </ul>`,
+      eco: ["supraescapular-posterior", "nervio-axilar"],
+      tecnica: `
+        <h4>Supraescapular posterior</h4>
+        <ol>
+          <li><b>Posición:</b> sentado o en decúbito lateral, brazo junto al cuerpo.</li>
+          <li><b>Sonda:</b> lineal, en plano coronal sobre la fosa supraespinosa, paralela a la espina de la escápula.</li>
+          <li><b>Imagen:</b> piso óseo de la fosa bajo el supraespinoso; arteria supraescapular con Doppler junto al nervio.</li>
+          <li><b>Punción:</b> aguja en plano, de medial a lateral; depositar 10 mL en el piso de la fosa, bajo la fascia del supraespinoso.</li>
+        </ol>
+        <h4>Nervio axilar</h4>
+        <ol>
+          <li><b>Posición:</b> sentado o en decúbito lateral, brazo junto al cuerpo.</li>
+          <li><b>Sonda:</b> lineal, en plano sagital en la cara posterior del brazo, bajo el borde posterolateral del acromion.</li>
+          <li><b>Imagen:</b> húmero, deltoides y redondo menor; arteria circunfleja humeral posterior con Doppler en el espacio cuadrangular.</li>
+          <li><b>Punción:</b> aguja en plano; depositar 10 mL alrededor de la arteria, entre el deltoides y el redondo menor.</li>
+        </ol>`,
+      volumen: "10 mL por nervio (supraescapular y axilar) de bupivacaína 0,25 %, con dexametasona 4 mg IV o perineural. Son dos punciones y toma más tiempo que un interescalénico: planear la analgesia de rescate para las primeras horas.",
+      complicaciones: `
+        <ul>
+          <li><b>Esperables:</b> más dolor que con el interescalénico en las primeras 4 h; cobertura incompleta (no bloquea pectoral lateral ni subescapulares); bloqueo motor del supraespinoso, infraespinoso y deltoides.</li>
+          <li><b>Graves o raras:</b> punción vascular (arterias supraescapular y circunfleja humeral posterior); toxicidad sistémica (dos inyecciones suman volumen); lesión nerviosa por inyección intraneural; neumotórax si la aguja va muy medial o profunda en la fosa.</li>
+        </ul>`,
+      evidencia: `
+        <ul>
+          <li><b>Neuts 2018:</b> más de 2,5 puntos de diferencia de dolor frente al interescalénico en las primeras 4 h.</li>
+          <li><b>Dhir 2016:</b> no inferior a las 24 h, con menos dolor a las 24 h (3,9 vs 6,4).</li>
+          <li><b>Metaanálisis 2021</b> (Medicine): peor al inicio, igual o mejor después.</li>
+          <li><b>Ferré 2020:</b> paresia frénica de 2 %; menos disnea, debilidad y parestesias.</li>
+        </ul>`,
+      perlas: `
+        <div class="perla"><b>El más seguro para el frénico:</b> 2 % frente a 40 % con el abordaje anterior del supraescapular.</div>
+        <div class="perla"><b>Analgesia que tarda en igualar:</b> más dolor que el interescalénico en las primeras 4 h; no inferior a las 24 h.</div>
+        <div class="perla"><b>Planear el rescate:</b> combinar con analgesia multimodal para cubrir las primeras horas.</div>`,
+      preguntas: [
+        { q: "¿Por qué combinar supraescapular con axilar?", a: "Porque entre los dos cubren la cápsula posterosuperior (supraescapular, cerca del 70 %) y la anteroinferior y la piel del deltoides (axilar), sin tocar el plexo braquial ni el frénico." },
+        { q: "¿Qué le falta a esta combinación?", a: "La cápsula anterior (pectoral lateral y subescapulares) y la piel de los portales (C3–C4). Por eso es una técnica analgésica y se acompaña de analgesia multimodal o de un cervical superficial." }
+      ],
+      figuras: [
+        { src: "img/lim2020-fig3.jpg", titulo: "Fosa supraespinosa (flecha): objetivo bajo el ligamento transverso superior y el supraespinoso", nota: "Izquierda de la imagen: medial; derecha: lateral.", fuente: "Lim YC et al. Korean J Anesthesiol. 2020;73(5):408–16, Fig. 3", url: "https://ekja.org/journal/view.php?doi=10.4097/kja.20141", licencia: "CC BY-NC 4.0", licUrl: "https://creativecommons.org/licenses/by-nc/4.0/" },
+        { src: "img/brjp2025-fig2.jpg", titulo: "Espacio cuadrangular con Doppler de la arteria circunfleja humeral posterior", nota: "Entre deltoides, redondo menor (craneal) y cabeza larga del tríceps (caudal).", fuente: "Bhalla A, Mekewar S. BrJP. 2025;8:e20250030, Fig. 2", url: "https://www.scielo.br/j/brjp/a/QD8PmyPLVLvhdm6J4vMsFVQ/?lang=en", licencia: "CC BY 4.0", licUrl: "https://creativecommons.org/licenses/by/4.0/" },
+        { src: "img/brjp2025-fig3.jpg", titulo: "Aguja en plano en el espacio cuadrangular, junto al nervio axilar (estrella)", nota: "Flechas: trayecto de la aguja en plano bajo el deltoides. Imagen de radiofrecuencia pulsada; la trayectoria es la misma del bloqueo.", fuente: "Bhalla A, Mekewar S. BrJP. 2025;8:e20250030, Fig. 3", url: "https://www.scielo.br/j/brjp/a/QD8PmyPLVLvhdm6J4vMsFVQ/?lang=en", licencia: "CC BY 4.0", licUrl: "https://creativecommons.org/licenses/by/4.0/" }
+      ],
+      imagenes: [
+        { titulo: "How I Do It: bloqueo combinado supraescapular y axilar ecoguiado", fuente: "ASRA Pain Medicine", url: "https://asra.com/news-publications/asra-updates/blog-landing/legacy-b-blog-posts/2019/08/07/how-i-do-it-ultrasound-guided-combined-suprascapular-and-axillary-nerve-block" }
+      ],
+      refs: ["ferre", "neuts", "dhir", "meta2021", "tran2019"]
+    },
+
+    /* ======================= CERVICAL SUPERFICIAL ====================== */
+    {
+      id: "cervical-superficial", nombre: "Cervical superficial", region: "Cuello y hombro superior", tema: 2, tipo: "Complemento", aka: "plexo cervical supraclavicular portales",
+      resumen: "Nervios supraclaviculares (C3–C4): completa la piel de los portales. Siempre combinado con un bloqueo de los nervios del hombro.",
+      frenicoNivel: "bajo",
+      ficha: {
+        posicion: "Supino o semisentado, cabeza girada hacia el lado contrario",
+        transductor: "Lineal, transversal sobre el borde posterior del ECM a nivel de C4",
+        profundidad: "Superficial: plano entre el ECM y la fascia prevertebral",
+        aguja: "22–25 G, 3,5–5 cm",
+        abordaje: "En plano, de lateral a medial",
+        objetivo: "Bajo el ECM, superficial a la fascia prevertebral, sobre el escaleno medio",
+        volumen: "5 mL de bupivacaína 0,25 %"
+      },
+      dosis: { f: "bupi", c: 0.25, v: 5 },
+      dermatomas: "C2–C4: piel del cuello, la oreja y la región supraclavicular, incluida la piel superior del hombro donde van los portales.",
+      noCubre: "La articulación del hombro y los planos profundos.",
+      frenico: "Rara si se queda superficial a la fascia prevertebral; sin incidencia aislada reportada en ensayos.",
+      indicaciones: `
+        <ul>
+          <li><b>Cirugía de cuello:</b> endarterectomía carotídea, tiroidectomía y paratiroidectomía, resección de quiste de hendidura branquial y de ganglios cervicales.</li>
+          <li><b>Cirugía de clavícula.</b></li>
+          <li><b>Otros usos:</b> complemento en cirugía de mama, tórax y hombro; catéter venoso central en el paciente despierto.</li>
+        </ul>`,
+      cobertura: `
+        <table class="t compact"><tbody>
+          <tr><td class="mono">C2</td><td>Occipital menor: piel retroauricular y occipital lateral</td></tr>
+          <tr><td class="mono">C2–C3</td><td>Auricular mayor: pabellón auricular, ángulo mandibular</td></tr>
+          <tr><td class="mono">C2–C3</td><td>Cervical transverso: cara anterior del cuello</td></tr>
+          <tr><td class="mono">C3–C4</td><td>Supraclaviculares: clavícula y piel superior del hombro (portales)</td></tr>
+        </tbody></table>`,
+      sonoanatomia: `
+        <ul>
+          <li>ECM superficial que se adelgaza hacia su borde posterior.</li>
+          <li>Bajo ese borde, las ramas superficiales como pequeños puntos hipoecoicos, en el plano entre el ECM y la <b>fascia prevertebral</b>, sobre el escaleno medio.</li>
+          <li>Profundo a la fascia prevertebral están el escaleno medio, el elevador de la escápula y las raíces: no se avanza la aguja hasta allí.</li>
+        </ul>`,
+      eco: "cervical",
+      tecnica: `
+        <ol>
+          <li><b>Posición:</b> supino o semisentado, cabeza girada hacia el lado contrario.</li>
+          <li><b>Sonda:</b> lineal, transversal sobre el borde posterior del ECM a nivel de C4.</li>
+          <li><b>Imagen:</b> plano entre el ECM y la fascia prevertebral, sobre el escaleno medio.</li>
+          <li><b>Punción:</b> aguja en plano, de lateral a medial; depositar 5 mL bajo el ECM, superficial a la fascia prevertebral.</li>
+        </ol>
+        <p class="nota">Por la nomenclatura de las fascias, inyectar bajo el ECM y por encima de la fascia prevertebral corresponde también a lo que algunos textos llaman bloqueo cervical intermedio.</p>`,
+      volumen: "5 mL en inyección única de bupivacaína 0,25 %, con dexametasona 4 mg IV. Quedarse superficial: depositar por encima de la fascia prevertebral evita que el anestésico llegue al frénico y al plexo braquial.",
+      complicaciones: `
+        <ul>
+          <li><b>Esperables:</b> anestesia cutánea del cuello, la oreja y la región supraclavicular; hormigueo de la oreja por bloqueo del auricular mayor; analgesia limitada (no cubre la articulación).</li>
+          <li><b>Graves o raras:</b> punción de la vena yugular externa; paresia frénica si se inyecta profundo a la fascia prevertebral; bloqueo del accesorio espinal (debilidad del trapecio); toxicidad sistémica.</li>
+        </ul>`,
+      evidencia: `
+        <ul>
+          <li><b>Musso 2017:</b> combinado con bloqueos de los nervios del hombro, 19 de 20 pacientes se operaron con sedación ligera, sin opioides ni manejo de la vía aérea.</li>
+          <li><b>ECA 2025</b> (n = 42): bloqueo pericapsular del hombro + cervical superficial frente a interescalénico: paresia diafragmática de 4,8 % frente a 38,1 %.</li>
+          <li><b>Evidencia limitada:</b> series de casos y ensayos pequeños; en los estudios siempre va combinado y falta medir su aporte aislado.</li>
+        </ul>`,
+      perlas: `
+        <div class="perla"><b>Completa la piel del hombro:</b> bloquea los supraclaviculares (C3–C4), la piel de los portales que ningún bloqueo del plexo braquial distal cubre.</div>
+        <div class="perla"><b>Siempre combinado:</b> se suma al supraescapular, al axilar o al infraclavicular.</div>
+        <div class="perla"><b>Técnica sencilla:</b> 5 mL bajo el ECM, superficial a la fascia prevertebral.</div>`,
+      preguntas: [
+        { q: "¿Por qué hace falta un cervical superficial si ya bloqueé supraescapular y axilar?", a: "Porque la piel superior del hombro, donde van los portales, depende de los supraclaviculares (C3–C4), que salen del plexo cervical y no del braquial." }
+      ],
+      figuras: [
+        { src: "img/kim2018-fig5.jpg", titulo: "Planos del bloqueo cervical superficial, intermedio y profundo (corte a nivel de C4)", nota: "A: superficial; B: intermedio; C: profundo.", fuente: "Kim JS et al. Korean J Anesthesiol. 2018;71(4):274–88, Fig. 5", url: "https://ekja.org/journal/view.php?doi=10.4097/kja.d.18.00143", licencia: "CC BY-NC 4.0", licUrl: "https://creativecommons.org/licenses/by-nc/4.0/" },
+        { src: "img/kim2018-fig4.jpg", titulo: "Bloqueo cervical intermedio por abordaje posterior: la aguja y la difusión (flechas) bajo el ECM", nota: "SCM: ECM; LA: anestésico local; IJV: yugular interna; CA: carótida. Paciente pediátrico (3 años), nivel C4–C5.", fuente: "Kim JS et al. Korean J Anesthesiol. 2018;71(4):274–88, Fig. 4", url: "https://ekja.org/journal/view.php?doi=10.4097/kja.d.18.00143", licencia: "CC BY-NC 4.0", licUrl: "https://creativecommons.org/licenses/by-nc/4.0/" }
+      ],
+      imagenes: [
+        { titulo: "Cervical plexus block: anatomía y técnica", fuente: "NYSORA", url: "https://nysora.com/regional-anesthesia/techniques/cervical-plexus-block/" }
+      ],
+      refs: ["musso", "eca2025_cp", "kimjs"]
+    }
+  ],
 
   /* ------------------------------------------------------------------ */
   farmacos: [
@@ -850,6 +1367,22 @@ window.BLOQUEOLAB = {
     giron: "Girón-Arango L, Peng PWH, Chin KJ, Brull R, Perlas A. Pericapsular nerve group (PENG) block for hip fracture. Reg Anesth Pain Med. 2018;43:859–63.",
     last2020: "Neal JM, Neal EJ, Weinberg GL. American Society of Regional Anesthesia and Pain Medicine Local Anesthetic Systemic Toxicity checklist: 2020 version. Reg Anesth Pain Med. 2021;46:81–2.",
     asra5: "Kopp SL, Vandermeulen E, McBane RD, Perlas A, Leffert L, Horlocker T. Regional anesthesia in the patient receiving antithrombotic or thrombolytic therapy: American Society of Regional Anesthesia and Pain Medicine evidence-based guidelines (fifth edition). Reg Anesth Pain Med. 2025. doi:10.1136/rapm-2024-105766.",
-    esaic: "Kietaibl S, Ferrandis R, Godier A, et al. Regional anaesthesia in patients on antithrombotic drugs: joint ESAIC/ESRA guidelines. Eur J Anaesthesiol. 2022;39:100–32."
+    esaic: "Kietaibl S, Ferrandis R, Godier A, et al. Regional anaesthesia in patients on antithrombotic drugs: joint ESAIC/ESRA guidelines. Eur J Anaesthesiol. 2022;39:100–32.",
+    nysora_isb: "Hadžić A. Ultrasound-guided interscalene brachial plexus block. En: NYSORA [Internet]. nysora.com/techniques/upper-extremity/ultrasound-guided-interscalene-brachial-plexus-block",
+    riazi: "Riazi S, Carmichael N, Awad I, Holtby RM, McCartney CJ. Effect of local anaesthetic volume (20 vs 5 ml) on the efficacy and respiratory consequences of ultrasound-guided interscalene brachial plexus block. Br J Anaesth. 2008;101(4):549–56.",
+    tran2019: "Tran J, Peng PWH, Agur AMR. Anatomical study of the innervation of glenohumeral and acromioclavicular joint capsules: implications for image-guided intervention. Reg Anesth Pain Med. 2019;44(4):452–8.",
+    aszmann: "Aszmann OC, Dellon AL, Birely BT, McFarland EG. Innervation of the human shoulder joint and its implications for surgery. Clin Orthop Relat Res. 1996;(330):202–7.",
+    kimdh: "Kim DH, Lin Y, Beathe JC, et al. Superior trunk block: a phrenic-sparing alternative to the interscalene block. A randomized controlled trial. Anesthesiology. 2019;131(3):521–33.",
+    burckett: "Burckett-St Laurent D, Chan V, Chin KJ. Refining the ultrasound-guided interscalene brachial plexus block: the superior trunk approach. Can J Anaesth. 2014;61(12):1098–102.",
+    meta_stb: "Metaanálisis de bloqueo de tronco superior frente a interescalénico (8 ECA, 597 pacientes). Anesth Pain Med (Seoul). 2025.",
+    siegenthaler: "Siegenthaler A, Moriggl B, Mlekusch S, et al. Ultrasound-guided suprascapular nerve block, description of a novel supraclavicular approach. Reg Anesth Pain Med. 2012;37(3):325–8.",
+    auyong: "Auyong DB, Hanson NA, Joseph RS, Schmidt BE, Slee AE, Yuan SC. Comparison of anterior suprascapular, supraclavicular, and interscalene nerve block approaches for major outpatient arthroscopic shoulder surgery: a randomized, double-blind, noninferiority trial. Anesthesiology. 2018;129(1):47–57.",
+    ferre: "Ferré F, Pommier M, Laumonerie P, et al. Hemidiaphragmatic paralysis following ultrasound-guided anterior vs. posterior suprascapular nerve block: a double-blind, randomised control trial. Anaesthesia. 2020;75(4):499–508.",
+    neuts: "Neuts A, Stessel B, Wouters PF, et al. Selective suprascapular and axillary nerve block versus interscalene plexus block for pain control after arthroscopic shoulder surgery: a noninferiority randomized parallel-controlled clinical trial. Reg Anesth Pain Med. 2018;43(7):738–44.",
+    dhir: "Dhir S, Sondekoppam RV, Sharma R, Ganapathy S, Athwal GS. A comparison of combined suprascapular and axillary nerve blocks to interscalene nerve block for analgesia in arthroscopic shoulder surgery: an equivalence study. Reg Anesth Pain Med. 2016;41(5):564–71.",
+    meta2021: "Metaanálisis: bloqueo supraescapular (± axilar) frente a interescalénico en cirugía artroscópica de hombro. Medicine (Baltimore). 2021. doi:10.1097/MD.0000000000027661.",
+    musso: "Musso D, et al. A novel combination of peripheral nerve blocks for arthroscopic shoulder surgery. Acta Anaesthesiol Scand. 2017;61(9):1192–202.",
+    eca2025_cp: "Interscalene block versus pericapsular nerve block and superficial cervical plexus block for arthroscopic shoulder surgery: a randomized controlled trial (n = 42). Anesth Pain Med. 2025.",
+    kimjs: "Kim JS, Ko JS, Bang S, Kim H, Lee SY. Cervical plexus block. Korean J Anesthesiol. 2018;71(4):274–88."
   }
 };
